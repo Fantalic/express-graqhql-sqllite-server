@@ -1,19 +1,17 @@
 import { Field, ObjectType, InputType } from "type-graphql"
 
 @ObjectType()
-export class User {
+export class Artist {
     @Field()
-    id!: number
+    ArtistId!: number
     @Field()
-    name!: string
-    @Field()
-    email!: string
+    Name!: string
 }
 
 @InputType()
-export class UserInput implements Pick<User, "name" | "email"> {
+export class UserInput implements Pick<Artist, "Name" | "ArtistId"> {
     @Field()
-    name!: string
+    ArtistId!: number
     @Field()
-    email!: string
+    Name!: string
 }

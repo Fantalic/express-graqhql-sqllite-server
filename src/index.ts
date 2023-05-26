@@ -3,8 +3,10 @@ import { buildSchema } from "type-graphql"
 import express from "express"
 import { ApolloServer } from '@apollo/server'
 import { expressMiddleware } from '@apollo/server/express4'
-import { UsersResolver } from "./users/resolver.js"
+import { UsersResolver } from "./graphql/resolver.js"
 import database from "./db/database.js"
+
+import bodyParser from 'body-parser'
 
 async function main() {
     const schema = await buildSchema({
@@ -20,6 +22,8 @@ async function main() {
     })
     await server.start()
 
+    app.use(bodyParser.urlencoded({ extended: true }))
+    app.use(bodyParser.json())
     app.use(
         expressMiddleware(server, {
             context: async ({ req, res }) => {
@@ -28,10 +32,11 @@ async function main() {
           })
     )
 
+
     await database.open("./db/chinook.db")
 
-    const rows = await database.all("select name from sqlite_master where type='table'");
-    //const rows = await database.all("select * from customers");
+    //const rows = await database.all("select name from sqlite_master where type='table'");
+    const rows = await database.all("select * from artists");
 
 
     console.log("Query result : ")
@@ -44,3 +49,4 @@ async function main() {
 }
 
 main()
+
