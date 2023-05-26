@@ -20,7 +20,7 @@
     "graphql": "^16.6.0",
     "nodemon": "^2.0.22",
     "reflect-metadata": "^0.1.13",
-    "sqllite": "^1.1.2",
+    "sqlite3": "^5.1.6",
     "type-graphql": "2.0.0-beta.2"
   },
   "devDependencies": {
